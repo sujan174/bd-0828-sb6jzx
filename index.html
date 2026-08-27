@@ -802,22 +802,24 @@
     showMsg('That didn&rsquo;t go through. Your note is still here, nothing is lost.' + alt, false);
   }
 
-  function postJSON(url, payload, text) {
+  // Sent as FormData on purpose. A JSON content-type would make the browser
+  // fire a CORS preflight, and the Cloudflare bot protection in front of the
+  // Web3Forms API rejects that OPTIONS request. multipart/form-data is
+  // CORS-safelisted, so no preflight happens and the POST goes straight out.
+  function postForm(url, fields, text) {
     sending = true;
     sentMsg.hidden = true;
     sendBtn.disabled = true;
     sendLabel.textContent = 'sending…';
 
+    var fd = new FormData();
+    Object.keys(fields).forEach(function (k) { fd.append(k, fields[k]); });
+
     // Phones drop off wifi mid-request; don't let it hang forever.
     var ctl = window.AbortController ? new AbortController() : null;
     var bail = setTimeout(function () { if (ctl) ctl.abort(); }, 12000);
 
-    fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload),
-      signal: ctl ? ctl.signal : undefined
-    })
+    fetch(url, { method: 'POST', body: fd, signal: ctl ? ctl.signal : undefined })
       .then(function (r) {
         clearTimeout(bail);
         return r.json().catch(function () { return { success: r.ok }; });
@@ -834,7 +836,7 @@
     var configured = c.key && c.key.indexOf('PASTE_') !== 0;
 
     if (c.mode === 'web3forms' && configured) {
-      postJSON('https://api.web3forms.com/submit', {
+      postForm('https://api.web3forms.com/submit', {
         access_key: c.key,
         subject: 'Lalima wrote back',
         from_name: 'For Lalima',
@@ -844,7 +846,7 @@
     }
 
     if (c.mode === 'formspree' && c.endpoint) {
-      postJSON(c.endpoint, { message: text }, text);
+      postForm(c.endpoint, { message: text }, text);
       return;
     }
 
