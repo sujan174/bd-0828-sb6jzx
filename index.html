@@ -281,7 +281,7 @@
   }
   .ghost:hover { color: #f6ecdf; border-color: rgba(246,236,223,.4); }
   .ghost[disabled] { opacity: .3; cursor: default; }
-  .ghost--music { height: 46px; font-size: 12px; }
+  .ghost--music { width: auto; min-width: 64px; padding: 0 12px; height: 46px; font-size: 12px; }
   .ghost--music:hover { color: #ffc27a; border-color: rgba(255,194,122,.45); }
   .nav__next {
     flex: 0 0 auto; min-height: 46px; padding: 0 17px;
@@ -466,7 +466,12 @@
       <button class="ghost" id="prev" type="button" aria-label="Previous">&larr;</button>
       <div class="dots" id="dots"></div>
       <div class="nav__side">
-        <button class="ghost ghost--music" id="music" type="button" aria-label="Toggle music" aria-pressed="false">off</button>
+        <button class="ghost ghost--music" id="music" type="button" aria-label="Play background music" aria-pressed="false">play</button>
+        <audio id="bgMusic" loop preload="metadata">
+          <!-- Drop your licensed royalty-free MP3 at assets/music/occasion.mp3 -->
+          <source src="assets/music/occasion.mp3" type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
         <button class="nav__next" id="next" type="button">next &rarr;</button>
       </div>
     </nav>
@@ -702,60 +707,55 @@
   });
 
   /* ---------- music ---------- */
-  var ctx = null, master = null, musicInt = null;
-  var SEQ = [523.25, 659.25, 783.99, 880, 783.99, 659.25, 587.33, 523.25, 493.88, 587.33, 659.25, 783.99];
+  var musicBtn = $('music');
+  var bgMusic = $('bgMusic');
+  if (bgMusic) bgMusic.volume = 0.35;
+
+  function setMusicUnavailable() {
+    state.music = false;
+    musicBtn.textContent = 'no track';
+    musicBtn.disabled = true;
+    musicBtn.setAttribute('aria-label', 'Background music unavailable. Add assets/music/occasion.mp3');
+    musicBtn.setAttribute('aria-pressed', 'false');
+  }
 
   function startMusic() {
-    if (ctx) return;
-    try {
-      var AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) return;
-      ctx = new AC();
-      if (ctx.state === 'suspended') ctx.resume();
-      master = ctx.createGain();
-      master.gain.value = 0.10;
-      master.connect(ctx.destination);
-      var i = 0;
-      var tick = function () {
-        if (!ctx) return;
-        var f = SEQ[i % SEQ.length]; i++;
-        var now = ctx.currentTime;
-        var o = ctx.createOscillator(), g = ctx.createGain();
-        o.type = 'triangle'; o.frequency.value = f;
-        g.gain.setValueAtTime(0, now);
-        g.gain.linearRampToValueAtTime(0.5, now + 0.02);
-        g.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
-        o.connect(g); g.connect(master); o.start(now); o.stop(now + 1.6);
-        if (i % 4 === 1) {
-          var b = ctx.createOscillator(), bg = ctx.createGain();
-          b.type = 'sine'; b.frequency.value = f / 4;
-          bg.gain.setValueAtTime(0, now);
-          bg.gain.linearRampToValueAtTime(0.28, now + 0.15);
-          bg.gain.exponentialRampToValueAtTime(0.001, now + 2.6);
-          b.connect(bg); bg.connect(master); b.start(now); b.stop(now + 2.7);
-        }
-      };
-      tick();
-      musicInt = setInterval(tick, 620);
-      state.music = true;
-      paintMusic();
-    } catch (e) { /* no audio, no problem */ }
+    if (!bgMusic) return;
+    var playing = bgMusic.play();
+    if (playing && typeof playing.then === 'function') {
+      playing.then(function () {
+        state.music = true;
+        paintMusic();
+      }).catch(function () {
+        state.music = false;
+        paintMusic();
+      });
+      return;
+    }
+    state.music = true;
+    paintMusic();
   }
 
   function stopMusic() {
-    if (musicInt) { clearInterval(musicInt); musicInt = null; }
-    if (ctx) { try { ctx.close(); } catch (e) {} ctx = null; master = null; }
+    if (!bgMusic) return;
+    bgMusic.pause();
     state.music = false;
     paintMusic();
   }
 
   function paintMusic() {
-    var b = $('music');
-    b.textContent = state.music ? 'on' : 'off';
-    b.setAttribute('aria-pressed', state.music ? 'true' : 'false');
+    musicBtn.textContent = state.music ? 'pause' : 'play';
+    musicBtn.setAttribute('aria-label', state.music ? 'Pause background music' : 'Play background music');
+    musicBtn.setAttribute('aria-pressed', state.music ? 'true' : 'false');
   }
 
-  $('music').addEventListener('click', function () { state.music ? stopMusic() : startMusic(); });
+  paintMusic();
+  if (!bgMusic) {
+    setMusicUnavailable();
+  } else {
+    bgMusic.addEventListener('error', setMusicUnavailable);
+    musicBtn.addEventListener('click', function () { bgMusic.paused ? startMusic() : stopMusic(); });
+  }
   document.addEventListener('visibilitychange', function () {
     if (document.hidden && state.music) stopMusic();
   });

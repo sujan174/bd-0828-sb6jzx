@@ -54,6 +54,17 @@ im.crop((l, (h-nh)//2, l+nw, (h-nh)//2+nh)) \
 
 Only `hero.jpg` loads up front; the rest are lazy-loaded per screen.
 
+## Background music
+
+The player expects a licensed MP3 at:
+
+`assets/music/occasion.mp3`
+
+This repo does not include a bundled track. Drop in your own royalty-free file
+at that path (keep it lightweight for mobile, ideally under ~5–8 MB) and commit
+it. Music is user-started (play/pause button) to comply with browser autoplay
+policies on GitHub Pages.
+
 ## The "send it" button (screen 7)
 
 GitHub Pages is static hosting — no server, no database, nothing that can
@@ -102,7 +113,7 @@ pre-filled) or `formspree` (needs an account, 50 submissions/month free).
 ## Notes
 
 - `#skip` in the URL jumps straight past the candle intro (`.../index.html#skip`).
-- Music is a small Web Audio melody, off by default — browsers block autoplay
-  until a tap, so it's a manual toggle in the bottom bar.
+- Music uses `<audio>` with a manual play/pause toggle in the bottom bar, off by
+  default. The default volume is a subtle background level.
 - Tap the small dot in the top bar four times.
 - Nav: swipe left/right, arrow keys, the dots, or the buttons.
