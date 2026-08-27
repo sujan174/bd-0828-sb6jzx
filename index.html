@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#14101a" />
+<meta name="color-scheme" content="dark" />
+<title>For Lalima</title>
+<meta name="description" content="A birthday website. 28 August." />
+<meta name="robots" content="noindex, nofollow" />
+<meta property="og:title" content="For Lalima" />
+<meta property="og:description" content="A birthday website. 28 August." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%95%AF%EF%B8%8F%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="uploads/hero.jpg" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; background: #14101a; color: #f6ecdf;
+    text-wrap: pretty; overscroll-behavior-y: none;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: hidden;
+  }
+  * { -webkit-font-smoothing: antialiased; }
+  img { -webkit-user-drag: none; user-select: none; max-width: 100%; }
+  a { color: #ffc27a; text-decoration: none; }
+  a:hover { color: #ffdcb0; }
+  button { font: inherit; }
+  textarea:focus { outline: none; border-color: rgba(255,194,122,.55); }
+  :focus-visible { outline: 2px solid #ffc27a; outline-offset: 3px; }
+
+  /* ---------- shell ---------- */
+  .shell {
+    position: relative;
+    min-height: 100vh; min-height: 100dvh;
+    background: radial-gradient(120% 90% at 50% -10%, #3a2233 0%, #1d1524 45%, #14101a 100%);
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+  .vignette {
+    position: fixed; inset: 0; z-index: 55; pointer-events: none;
+    background: radial-gradient(115% 85% at 50% 40%, rgba(0,0,0,0) 55%, rgba(8,5,12,.42) 100%);
+    mix-blend-mode: multiply;
+  }
+  [hidden] { display: none !important; }
+
+  /* ---------- animations ---------- */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @keyframes softIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes flicker {
+    0%, 100% { transform: scale(1) translateY(0); opacity: .95; }
+    25% { transform: scale(1.12, .92) translateY(-1px); opacity: 1; }
+    50% { transform: scale(.94, 1.08) translateY(1px); opacity: .88; }
+    75% { transform: scale(1.06, .96) translateY(-1px); opacity: 1; }
+  }
+  @keyframes glowPulse { 0%, 100% { opacity: .5; } 50% { opacity: .85; } }
+  @keyframes smoke { 0% { opacity: .55; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-46px) scale(1.9); } }
+  @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(112vh) rotate(720deg); opacity: .9; } }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(26px) scale(.97); } to { opacity: 1; transform: none; } }
+
+  /* ---------- intro ---------- */
+  .intro {
+    position: relative;
+    min-height: 100vh; min-height: 100dvh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: clamp(38px, 9vh, 64px);
+    padding: 40px 24px;
+  }
+  .intro__glow {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -58%);
+    width: min(70vw, 520px); height: min(70vw, 520px); border-radius: 999px;
+    background: radial-gradient(circle, rgba(255,178,92,.30) 0%, rgba(255,150,80,.08) 45%, rgba(0,0,0,0) 70%);
+    animation: glowPulse 4s ease-in-out infinite; pointer-events: none;
+  }
+  .cake {
+    position: relative; display: flex; align-items: flex-end; gap: 19px; height: 140px;
+    background: none; border: 0; padding: 0; cursor: pointer;
+  }
+  .cake__slab {
+    display: block; position: absolute; left: -34px; right: -34px; bottom: -16px; height: 16px;
+    border-radius: 6px; background: linear-gradient(#f1e3d2, #d9c3ae);
+  }
+  .candle { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; height: 100%; }
+  .flame {
+    display: block; position: relative; width: 16px; height: 24px; margin-bottom: 6px;
+    border-radius: 50% 50% 46% 46% / 62% 62% 38% 38%;
+    background: radial-gradient(60% 70% at 50% 70%, #fff3d0 0%, #ffc46a 45%, #ff8a3d 78%, rgba(255,110,50,0) 100%);
+    box-shadow: 0 0 26px 10px rgba(255,164,80,.38);
+    animation: flicker 1.1s ease-in-out infinite;
+  }
+  .smoke {
+    display: block; width: 8px; height: 8px; margin-bottom: 8px; border-radius: 999px;
+    background: rgba(246,236,223,.5); filter: blur(3px);
+    animation: smoke 1.3s ease-out forwards;
+  }
+  .wick { display: block; width: 11px; height: 2px; background: #4a3b2e; border-radius: 2px; }
+  .stick {
+    display: block; width: 11px; height: 62px; border-radius: 3px 3px 1px 1px;
+    background: repeating-linear-gradient(135deg, #f6ecdf 0 6px, #e9b0bd 6px 12px);
+    box-shadow: inset -3px 0 6px rgba(90,60,70,.28);
+  }
+  .intro__copy { text-align: center; max-width: 520px; }
+  .intro__line {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: clamp(29px, 8vw, 50px); line-height: 1.15; color: #f8efe2;
+    animation: softIn 1.2s ease both;
+  }
+  .intro__sub {
+    margin-top: 14px; font-size: 12px; letter-spacing: .22em;
+    text-transform: uppercase; color: rgba(246,236,223,.42);
+  }
+  .skip {
+    position: absolute; bottom: calc(26px + env(safe-area-inset-bottom)); right: 18px;
+    background: none; border: none; color: rgba(246,236,223,.38);
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    cursor: pointer; padding: 12px;
+  }
+  .skip:hover { color: rgba(246,236,223,.8); }
+
+  /* ---------- story chrome ---------- */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 45;
+    display: flex; align-items: center; justify-content: center; gap: 9px;
+    padding: calc(12px + env(safe-area-inset-top)) 16px 12px;
+    background: linear-gradient(rgba(20,16,26,.88), rgba(20,16,26,0));
+    pointer-events: none;
+  }
+  .topbar span {
+    font-size: 9.5px; letter-spacing: .26em; text-transform: uppercase;
+    color: rgba(246,236,223,.38);
+  }
+  .egg {
+    width: 24px; height: 24px; padding: 0; background: none; border: none;
+    cursor: pointer; pointer-events: auto;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .egg i { display: block; width: 4px; height: 4px; border-radius: 999px; background: rgba(255,194,122,.6); }
+  .eggnote {
+    position: fixed; left: 16px; right: 16px;
+    bottom: calc(96px + env(safe-area-inset-bottom));
+    z-index: 50; display: flex; justify-content: center; pointer-events: none;
+  }
+  .eggnote p {
+    max-width: 440px; margin: 0; padding: 16px 20px;
+    background: rgba(30,20,34,.9); border: 1px solid rgba(255,194,122,.3); border-radius: 14px;
+    font-family: 'Instrument Serif', Georgia, serif; font-style: italic;
+    font-size: 17px; line-height: 1.55; color: #ffdcb0; text-align: center;
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    animation: riseIn .6s ease both;
+  }
+
+  /* ---------- sections ---------- */
+  .screen {
+    position: relative;
+    min-height: 100vh; min-height: 100dvh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 92px 22px 178px;
+  }
+  .screen.is-active { animation: fadeUp .8s cubic-bezier(.2,.7,.2,1) both; }
+  .center { text-align: center; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: .26em; text-transform: uppercase;
+    color: rgba(255,194,122,.72);
+  }
+  .lede {
+    max-width: 560px; margin: 30px 0 0;
+    font-size: clamp(15.5px, 4vw, 19px); line-height: 1.65; color: rgba(246,236,223,.72);
+  }
+  h1, h2 { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; margin: 0; }
+  .title {
+    margin: 22px 0 0; font-size: clamp(46px, 13vw, 132px);
+    line-height: .94; letter-spacing: -.02em; color: #faf2e6;
+  }
+  .title em { font-style: italic; color: #ffc27a; }
+
+  .polaroid { padding: 10px; background: #f7efe3; border-radius: 3px; box-shadow: 0 30px 70px -30px rgba(0,0,0,.8); }
+  .polaroid img { display: block; width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover; border-radius: 1px; filter: saturate(1.05); background: #e2d3c2; }
+  .polaroid--hero { margin: 38px 0 0; transform: rotate(-3deg); width: min(62vw, 250px); }
+  .polaroid__cap { padding: 12px 4px 4px; font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 16px; color: #5b4a52; }
+  .hint { margin-top: 30px; font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: rgba(246,236,223,.3); }
+
+  .huge { font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(66px, 20vw, 210px); line-height: .86; letter-spacing: -.03em; color: #faf2e6; margin-top: 18px; }
+  .trio { display: flex; justify-content: center; align-items: flex-start; gap: 10px; margin-top: 44px; max-width: 420px; width: 100%; }
+  .trio > div { flex: 1 1 0; min-width: 0; padding: 7px; background: #f7efe3; border-radius: 3px; box-shadow: 0 24px 54px -26px rgba(0,0,0,.8); }
+  .trio > div:nth-child(1) { transform: rotate(-4deg); }
+  .trio > div:nth-child(2) { transform: rotate(2.5deg); }
+  .trio > div:nth-child(3) { transform: rotate(-1.5deg); }
+
+  .list { display: flex; flex-direction: column; max-width: 660px; width: 100%; margin-top: 46px; }
+  .list__row { display: flex; gap: 20px; align-items: baseline; padding: 22px 0; border-top: 1px solid rgba(246,236,223,.14); }
+  .list__row:last-child { border-bottom: 1px solid rgba(246,236,223,.14); }
+  .list__n { font-family: 'Instrument Serif', Georgia, serif; font-size: 20px; color: rgba(255,194,122,.8); min-width: 26px; }
+  .list__t { font-size: clamp(15.5px, 4vw, 19px); line-height: 1.6; color: rgba(246,236,223,.86); }
+  .list__t--warm { color: #ffdcb0; }
+  .aside { margin: 34px 0 0; font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 17px; color: rgba(246,236,223,.45); text-align: center; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 11px; max-width: 460px; width: 100%; margin-top: 38px; }
+  .grid > div { padding: 6px; background: #f7efe3; border-radius: 3px; box-shadow: 0 16px 34px -20px rgba(0,0,0,.75); }
+  .grid img, .trio img { display: block; width: 100%; height: auto; aspect-ratio: 3/4; object-fit: cover; filter: saturate(1.04); background: #e2d3c2; }
+
+  .letter {
+    position: relative; max-width: 640px; width: 100%;
+    background: linear-gradient(#f9f1e5, #f2e6d5); color: #3a2c33;
+    padding: clamp(26px, 7vw, 56px); border-radius: 2px;
+    box-shadow: 0 44px 90px -34px rgba(0,0,0,.85);
+    animation: riseIn .9s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .letter p { margin: 18px 0 0; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(17px, 4.4vw, 21px); line-height: 1.68; }
+  .letter p:first-of-type { margin: 0; font-size: clamp(20px, 5vw, 25px); line-height: 1.55; }
+  .letter__sign { margin-top: 26px !important; font-style: italic; color: #7a5a66; }
+
+  .cta {
+    display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+    margin-top: 34px; padding: 19px 34px; width: min(100%, 340px); min-height: 56px;
+    background: #ffc27a; color: #2b1c22; border-radius: 999px;
+    font-size: 16px; font-weight: 500;
+    box-shadow: 0 22px 48px -20px rgba(255,194,122,.6);
+  }
+  .cta:hover { background: #ffdcb0; color: #241820; }
+  .specs { display: grid; gap: 0; max-width: 460px; width: 100%; margin-top: 44px; text-align: left; }
+  .specs > div { padding: 15px 2px; border-top: 1px solid rgba(246,236,223,.14); }
+  .specs dt { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,194,122,.7); margin: 0; }
+  .specs dd { margin: 7px 0 0; font-size: 15px; color: rgba(246,236,223,.8); }
+
+  .note {
+    width: min(100%, 560px); margin-top: 28px; padding: 20px; min-height: 150px;
+    background: rgba(246,236,223,.05); border: 1px solid rgba(246,236,223,.18);
+    border-radius: 4px; color: #f6ecdf;
+    font-family: 'Instrument Serif', Georgia, serif; font-size: 19px; line-height: 1.6;
+    resize: vertical;
+  }
+  .note::placeholder { color: rgba(246,236,223,.35); }
+  .send {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: min(100%, 560px); min-height: 54px; margin-top: 16px; padding: 0 28px;
+    background: #ffc27a; border: none; border-radius: 999px; color: #2b1c22;
+    font-size: 16px; font-weight: 500; cursor: pointer;
+    box-shadow: 0 20px 44px -22px rgba(255,194,122,.6);
+  }
+  .send:hover { background: #ffdcb0; }
+  .send:active { transform: scale(.98); }
+  .send[disabled] { opacity: .55; cursor: default; box-shadow: none; }
+  .send[disabled]:hover { background: #ffc27a; }
+  .sentmsg a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+  .sentmsg {
+    max-width: 460px; margin: 20px 0 0;
+    font-family: 'Instrument Serif', Georgia, serif; font-style: italic;
+    font-size: 19px; line-height: 1.6; color: #ffdcb0; animation: softIn .6s ease both;
+  }
+  .endrule { display: flex; align-items: center; gap: 12px; margin-top: 46px; opacity: .5; }
+  .endrule i { display: block; flex: 0 1 34px; width: 34px; height: 1px; background: rgba(246,236,223,.4); }
+  .endrule span { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: rgba(246,236,223,.6); white-space: nowrap; }
+
+  /* ---------- bottom nav ---------- */
+  .nav {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 18px 14px calc(16px + env(safe-area-inset-bottom));
+  }
+  /* Blur + scrim fade in together, so the bar has no hard top edge. */
+  .nav::before {
+    content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: linear-gradient(rgba(20,16,26,0), rgba(20,16,26,.94) 50%);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 55%);
+    mask-image: linear-gradient(to bottom, transparent 0%, #000 55%);
+  }
+  .nav > * { position: relative; z-index: 1; }
+  .nav__side { display: flex; gap: 10px; align-items: center; }
+  .ghost {
+    flex: 0 0 auto; width: 46px; min-height: 46px; padding: 0;
+    background: none; border: 1px solid rgba(246,236,223,.16); border-radius: 999px;
+    color: rgba(246,236,223,.6); font-size: 16px; cursor: pointer;
+  }
+  .ghost:hover { color: #f6ecdf; border-color: rgba(246,236,223,.4); }
+  .ghost[disabled] { opacity: .3; cursor: default; }
+  .ghost--music { height: 46px; font-size: 12px; }
+  .ghost--music:hover { color: #ffc27a; border-color: rgba(255,194,122,.45); }
+  .nav__next {
+    flex: 0 0 auto; min-height: 46px; padding: 0 17px;
+    background: #ffc27a; border: none; border-radius: 999px; color: #2b1c22;
+    font-size: 13px; font-weight: 500; cursor: pointer;
+  }
+  .nav__next:hover { background: #ffdcb0; }
+  .dots { display: flex; align-items: center; gap: 2px; flex: 1 1 auto; justify-content: center; }
+  .dot {
+    width: 15px; height: 40px; padding: 0; background: none; border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .dot i { display: block; width: 6px; height: 6px; border-radius: 999px; background: rgba(246,236,223,.28); transition: all .25s ease; }
+  .dot[aria-current="true"] i { width: 9px; height: 9px; background: #ffc27a; box-shadow: 0 0 14px 3px rgba(255,194,122,.5); }
+
+  .confetti { position: fixed; inset: 0; pointer-events: none; z-index: 70; overflow: hidden; }
+  .confetti i { position: absolute; top: -8vh; display: block; }
+
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* Phones: reclaim vertical space so a screen mostly fits one viewport. */
+  @media (max-width: 520px) {
+    .screen { padding: 70px 20px calc(114px + env(safe-area-inset-bottom)); }
+    .screen[data-screen="7"] { padding-bottom: calc(130px + env(safe-area-inset-bottom)); }
+    .title { margin-top: 16px; }
+    .lede { margin-top: 20px; }
+    .polaroid { padding: 8px; }
+    .polaroid--hero { margin-top: 26px; width: min(56vw, 215px); }
+    .polaroid__cap { padding: 9px 2px 2px; font-size: 14px; }
+    .hint { margin-top: 16px; }
+    .huge { margin-top: 14px; }
+    .trio { margin-top: 22px; }
+    .list { margin-top: 30px; }
+    .list__row { padding: 17px 0; }
+    .aside { margin-top: 26px; }
+    .grid { margin-top: 28px; gap: 9px; }
+    .specs { margin-top: 20px; }
+    .specs > div { padding: 8px 2px; }
+    .cta { margin-top: 20px; padding: 17px 30px; }
+    .letter { padding: 24px 22px; }
+    .letter p { margin-top: 14px; line-height: 1.62; }
+    .letter__sign { margin-top: 20px !important; }
+    .note { margin-top: 22px; min-height: 128px; }
+    .endrule { margin-top: 32px; }
+  }
+
+  @media (max-width: 360px) {
+    .cake { gap: 13px; }
+    .nav { padding-left: 10px; padding-right: 10px; }
+    .nav__next { padding: 0 13px; font-size: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    .shell { background-attachment: scroll; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="confetti" id="confetti" aria-hidden="true"></div>
+
+  <!-- ============ INTRO ============ -->
+  <div class="intro" id="intro">
+    <div class="intro__glow" aria-hidden="true"></div>
+
+    <button class="cake" id="cake" aria-label="Blow out the candles">
+      <div class="candle" data-candle><span class="flamewrap"></span><span class="wick"></span><span class="stick"></span></div>
+      <div class="candle" data-candle><span class="flamewrap"></span><span class="wick"></span><span class="stick"></span></div>
+      <div class="candle" data-candle><span class="flamewrap"></span><span class="wick"></span><span class="stick"></span></div>
+      <div class="candle" data-candle><span class="flamewrap"></span><span class="wick"></span><span class="stick"></span></div>
+      <div class="candle" data-candle><span class="flamewrap"></span><span class="wick"></span><span class="stick"></span></div>
+      <span class="cake__slab" aria-hidden="true"></span>
+    </button>
+
+    <div class="intro__copy">
+      <div class="intro__line" id="introLine">lighting the candles…</div>
+      <div class="intro__sub" id="introSub">hold on, this takes a second</div>
+    </div>
+
+    <button class="skip" id="skip" type="button">skip &rarr;</button>
+  </div>
+
+  <!-- ============ STORY ============ -->
+  <div id="story" hidden>
+    <div class="topbar">
+      <span>for Lalima</span>
+      <button class="egg" id="egg" type="button" aria-label="."><i></i></button>
+      <span id="stepLabel">1 / 7</span>
+    </div>
+
+    <div class="eggnote" id="eggnote" hidden>
+      <p>You found the sixth candle. One more wish — this one&rsquo;s on me, and I&rsquo;m good for it.</p>
+    </div>
+
+    <!-- 1 -->
+    <section class="screen center" data-screen="1">
+      <div class="eyebrow">28 August 2026 &middot; official documentation</div>
+      <h1 class="title">happy birthday,<br /><em>Lalima</em></h1>
+      <p class="lede">You have completed another lap around the sun with minimal structural damage. I built you an entire website, because apparently that is easier for me than saying words with my mouth.</p>
+      <figure class="polaroid polaroid--hero">
+        <img src="uploads/hero.jpg" alt="Lalima" width="900" height="1200" fetchpriority="high" />
+        <figcaption class="polaroid__cap">the birthday girl, allegedly</figcaption>
+      </figure>
+      <div class="hint">swipe &rarr;</div>
+    </section>
+
+    <!-- 2 -->
+    <section class="screen center" data-screen="2" hidden>
+      <div class="eyebrow">chapter one</div>
+      <div class="huge">two years</div>
+      <p class="lede" style="max-width:620px;margin-top:22px;line-height:1.7">More than two years now, and somehow you have ended up one of my best friends and one of the closest people I have. A very unexpected friendship, if you ask me. We talk too much and for far too long, about the most random shit, usually well past the point where either of us should have been asleep. I still never get bored. There is always something going on.</p>
+      <p class="lede" style="max-width:620px;margin-top:15px;line-height:1.7">You are also the person I come back to after everything. Whatever happens, good or bad, it doesn&rsquo;t feel finished until I have told you the story and we have talked it to death. It has always been that easy with you.</p>
+      <div class="trio">
+        <div><img src="uploads/trio-1.jpg" alt="" loading="lazy" width="900" height="1200" /></div>
+        <div><img src="uploads/trio-2.jpg" alt="" loading="lazy" width="900" height="1200" /></div>
+        <div><img src="uploads/trio-3.jpg" alt="" loading="lazy" width="900" height="1200" /></div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="screen" data-screen="3" hidden>
+      <div class="eyebrow center">chapter two &middot; warning: sincerity ahead</div>
+      <h2 class="center" style="max-width:760px;margin-top:20px;font-size:clamp(32px,8.5vw,68px);line-height:1.06;letter-spacing:-.015em;color:#faf2e6">things I would never say out loud</h2>
+      <div class="list">
+        <div class="list__row"><span class="list__n">01</span><span class="list__t">You are one of the purest and kindest people I have ever met.</span></div>
+        <div class="list__row"><span class="list__n">02</span><span class="list__t">You are far stronger than you think. I don&rsquo;t think you see it yet &mdash; trust yourself more.</span></div>
+        <div class="list__row"><span class="list__n">03</span><span class="list__t list__t--warm">Whatever it is, whenever it is &mdash; I&rsquo;m there. That is not a birthday line. Anything, any time, just ask.</span></div>
+      </div>
+      <p class="aside">(that was the sincere part. it&rsquo;s over. everyone relax.)</p>
+    </section>
+
+    <!-- 4 -->
+    <section class="screen center" data-screen="4" hidden>
+      <div class="eyebrow">chapter three</div>
+      <h2 style="margin-top:20px;font-size:clamp(34px,9vw,80px);line-height:1;letter-spacing:-.02em;color:#faf2e6">exhibit A through H</h2>
+      <p class="lede" style="max-width:540px;margin-top:20px;font-size:clamp(15px,3.8vw,18px)">Evidence submitted to the court of best friends. The defence rests immediately.</p>
+      <div class="grid" id="gallery"></div>
+    </section>
+
+    <!-- 5 -->
+    <section class="screen" data-screen="5" hidden>
+      <div class="eyebrow center" style="margin-bottom:18px">a note, from me</div>
+      <div class="letter">
+        <p>Sup,</p>
+        <p>I don&rsquo;t know why showing even a hint of vulnerability around people is so hard for me. It goes against every fibre in my body. But I think you should know this one.</p>
+        <p>Since I started getting to know you, you have felt like a little sister I am supposed to look out for. That is why I never say no to anything you ask. I have already eaten, I have no money left, and you suddenly decide you want Domino&rsquo;s &mdash; and there I am saying yeah, let&rsquo;s, I could eat. Then I go and find the money. You say you want to go somewhere, and I say sure, I&rsquo;ll come.</p>
+        <p>I know I don&rsquo;t show it much. I don&rsquo;t really know how to. But I hope you get what I am trying to say.</p>
+        <p class="letter__sign">&mdash; me</p>
+      </div>
+      <p class="center" style="margin-top:14px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:rgba(246,236,223,.34)">real version arriving in person</p>
+    </section>
+
+    <!-- 6 -->
+    <section class="screen center" data-screen="6" hidden>
+      <div class="eyebrow">action required</div>
+      <h2 style="margin-top:20px;font-size:clamp(44px,12vw,92px);line-height:.98;letter-spacing:-.02em;color:#faf2e6">book me.</h2>
+      <p class="lede" style="max-width:580px;margin-top:24px">I am formally requesting a slot in your calendar. Not a college thing, not a quick thing &mdash; we are going to Mangalore, and it is taking the whole day. Yes, I sent my best friend a booking link. No, I will not be taking questions about it.</p>
+      <a class="cta" href="https://cal.com/sujan-h-iauiv5/30min" target="_blank" rel="noopener">pick a time <span style="font-size:18px">&rarr;</span></a>
+      <dl class="specs">
+        <div><dt>duration</dt><dd>The link says 30 minutes. Ignore that.</dd></div>
+        <div><dt>location</dt><dd>Mangalore. We leave campus in the morning.</dd></div>
+        <div><dt>dress code</dt><dd>Dress up. Properly. I mean it.</dd></div>
+        <div><dt>agenda</dt><dd>Classified. Stop asking.</dd></div>
+        <div><dt>cancellation policy</dt><dd>There isn&rsquo;t one. Clear the day.</dd></div>
+      </dl>
+    </section>
+
+    <!-- 7 -->
+    <section class="screen center" data-screen="7" hidden style="padding-bottom:186px">
+      <div class="eyebrow">your turn</div>
+      <h2 style="margin-top:20px;font-size:clamp(34px,9vw,74px);line-height:1;letter-spacing:-.02em;color:#faf2e6">say something back</h2>
+      <p class="lede" style="max-width:520px;margin-top:20px;font-size:clamp(15px,3.8vw,18px)">Type it, hit send, and it comes straight to me. No editing afterwards, no take-backs. Be honest, be mean, be nice &mdash; whatever you&rsquo;ve got.</p>
+      <label class="sr" for="noteBox">Your note</label>
+      <textarea class="note" id="noteBox" placeholder="okay so, about this website&hellip;"></textarea>
+      <button class="send" id="sendBtn" type="button"><span id="sendLabel">send it</span> <span style="font-size:17px">&rarr;</span></button>
+      <p class="sentmsg" id="sentMsg" hidden>Sent. I&rsquo;m going to read that far too many times.</p>
+      <div class="endrule"><i></i><span>end of website &middot; start of the day</span><i></i></div>
+    </section>
+
+    <nav class="nav" aria-label="Chapters">
+      <button class="ghost" id="prev" type="button" aria-label="Previous">&larr;</button>
+      <div class="dots" id="dots"></div>
+      <div class="nav__side">
+        <button class="ghost ghost--music" id="music" type="button" aria-label="Toggle music" aria-pressed="false">off</button>
+        <button class="nav__next" id="next" type="button">next &rarr;</button>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* =========================================================
+     CONFIG — the only bit you need to touch.
+     Where does her note go when she hits "send it"?
+     Pick ONE mode and fill it in. Leave as-is and it falls
+     back to copy-to-clipboard, which still works fine.
+     ========================================================= */
+  var CONFIG = {
+    send: {
+      mode: 'web3forms',
+
+      // Get this in ~2 minutes, no account needed:
+      //   1. go to https://web3forms.com
+      //   2. type your email into "Create Access Key"
+      //   3. they email you a key -> paste it here
+      // The key is safe in public source: it maps to your email on their
+      // server, so your address never appears on this page.
+      key: 'PASTE_YOUR_ACCESS_KEY_HERE',
+
+      // Optional but recommended. If the request fails (dead wifi, service
+      // down), the page offers her a WhatsApp link so the note still reaches
+      // you instead of evaporating. Digits only, country code first.
+      fallbackPhone: ''
+    }
+    // Other modes, if you'd rather:
+    // send: { mode: 'whatsapp',  phone: '91XXXXXXXXXX' }
+    // send: { mode: 'formspree', endpoint: 'https://formspree.io/f/xxxxxxxx', fallbackPhone: '' }
+  };
+
+  var GALLERY = [
+    'uploads/gallery-1.jpg', 'uploads/gallery-2.jpg',
+    'uploads/gallery-3.jpg', 'uploads/gallery-4.jpg',
+    'uploads/gallery-5.jpg', 'uploads/gallery-6.jpg',
+    'uploads/gallery-7.jpg', 'uploads/gallery-8.jpg'
+  ];
+
+  var TOTAL = 7;
+  var $ = function (id) { return document.getElementById(id); };
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var state = { screen: 1, blown: false, lit: 0, taps: 0, sent: false, music: false };
+  var timers = [];
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  function clearTimers() { timers.forEach(clearTimeout); timers = []; }
+
+  /* ---------- gallery ---------- */
+  (function buildGallery() {
+    var frag = document.createDocumentFragment();
+    GALLERY.forEach(function (src) {
+      var box = document.createElement('div');
+      var img = document.createElement('img');
+      img.src = src; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
+      img.width = 900; img.height = 1200;
+      box.appendChild(img);
+      frag.appendChild(box);
+    });
+    $('gallery').appendChild(frag);
+  })();
+
+  /* Missing photo? Keep the frame, drop the broken icon. */
+  document.addEventListener('error', function (e) {
+    var t = e.target;
+    if (t && t.tagName === 'IMG') {
+      t.style.background = 'repeating-linear-gradient(135deg,#e7d8c6 0 10px,#dfceba 10px 20px)';
+      t.removeAttribute('src');
+    }
+  }, true);
+
+  /* ---------- candles ---------- */
+  var candles = [].slice.call(document.querySelectorAll('[data-candle]'));
+
+  function paintCandles() {
+    candles.forEach(function (c, i) {
+      var slot = c.firstElementChild;
+      var want = state.blown ? (state.lit > i ? 'smoke' : '') : (state.lit > i ? 'flame' : '');
+      if (slot.dataset.kind === want) return;
+      slot.dataset.kind = want;
+      slot.className = want ? want : 'flamewrap';
+      // .flamewrap has no box; flame/smoke classes carry the visuals
+    });
+  }
+
+  function paintIntroCopy() {
+    $('introLine').textContent = state.blown
+      ? 'make a wish, Lalima.'
+      : (state.lit >= 5 ? 'now blow them out.' : 'lighting the candles…');
+    $('introSub').textContent = state.blown
+      ? 'loading two years of nonsense'
+      : 'hold on, this takes a second';
+  }
+
+  function blowOut() {
+    if (state.blown) return;
+    clearTimers();
+    state.blown = true; state.lit = 5;
+    paintCandles(); paintIntroCopy();
+    later(toStory, 1100);
+    later(function () { burst(0.55); }, 1350);
+  }
+
+  function runIntro() {
+    for (var i = 1; i <= 5; i++) {
+      (function (n) { later(function () { state.lit = n; paintCandles(); paintIntroCopy(); }, 380 + n * 460); })(i);
+    }
+    later(blowOut, 3400);
+  }
+
+  function toStory() {
+    $('intro').hidden = true;
+    $('story').hidden = false;
+    document.body.style.overflowX = 'hidden';
+    show(state.screen, true);
+  }
+
+  $('cake').addEventListener('click', blowOut);
+  $('skip').addEventListener('click', function () {
+    clearTimers();
+    state.blown = true; state.lit = 5;
+    toStory();
+  });
+
+  /* ---------- screens ---------- */
+  var sections = {};
+  [].slice.call(document.querySelectorAll('[data-screen]')).forEach(function (el) {
+    sections[el.dataset.screen] = el;
+  });
+
+  var dotsWrap = $('dots');
+  var dotEls = [];
+  for (var d = 1; d <= TOTAL; d++) {
+    (function (n) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'dot';
+      b.setAttribute('aria-label', 'Chapter ' + n);
+      b.appendChild(document.createElement('i'));
+      b.addEventListener('click', function () { go(n); });
+      dotsWrap.appendChild(b);
+      dotEls.push(b);
+    })(d);
+  }
+
+  function show(n, force) {
+    for (var k = 1; k <= TOTAL; k++) {
+      var el = sections[k];
+      var on = (k === n);
+      el.hidden = !on;
+      el.classList.toggle('is-active', on);
+      if (on && !reduced) { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; }
+    }
+    dotEls.forEach(function (b, i) { b.setAttribute('aria-current', (i + 1) === n ? 'true' : 'false'); });
+    $('stepLabel').textContent = n + ' / ' + TOTAL;
+    $('next').textContent = n === TOTAL ? 'again' : 'next →';
+    $('prev').disabled = n === 1;
+    if (!force) window.scrollTo(0, 0);
+  }
+
+  function go(n) {
+    var c = Math.max(1, Math.min(TOTAL, n));
+    if (c === state.screen) return;
+    state.screen = c;
+    show(c);
+    window.scrollTo(0, 0);
+  }
+
+  $('next').addEventListener('click', function () {
+    if (state.screen === TOTAL) { go(1); burst(0.5); } else { go(state.screen + 1); }
+  });
+  $('prev').addEventListener('click', function () { go(state.screen - 1); });
+
+  window.addEventListener('keydown', function (e) {
+    if ($('story').hidden) { if (e.key === 'Enter' || e.key === ' ') blowOut(); return; }
+    if (e.target && /^(TEXTAREA|INPUT)$/.test(e.target.tagName)) return;
+    if (e.key === 'ArrowRight') go(state.screen + 1);
+    if (e.key === 'ArrowLeft') go(state.screen - 1);
+  });
+
+  /* ---------- swipe ---------- */
+  var tx = null, ty = null, tt = 0;
+  window.addEventListener('touchstart', function (e) {
+    var t = e.changedTouches[0];
+    tx = t.clientX; ty = t.clientY; tt = Date.now();
+  }, { passive: true });
+
+  window.addEventListener('touchend', function (e) {
+    if (tx == null || $('story').hidden) { tx = null; return; }
+    var t = e.changedTouches[0];
+    var dx = t.clientX - tx, dy = t.clientY - ty, dt = Date.now() - tt;
+    tx = null;
+    if (dt > 800) return;
+    if (Math.abs(dx) < 55 || Math.abs(dy) > Math.abs(dx) * 0.8) return;
+    if (e.target && e.target.closest && e.target.closest('textarea, button, a')) return;
+    go(state.screen + (dx < 0 ? 1 : -1));
+  }, { passive: true });
+
+  /* ---------- confetti ---------- */
+  var COLS = ['#ffc27a', '#e9b0bd', '#f6ecdf', '#ff9f5e', '#c9a0ff'];
+  var confettiTimer = null;
+
+  function burst(scale) {
+    if (reduced) return;
+    var layer = $('confetti');
+    var n = Math.round(90 * (typeof scale === 'number' ? scale : 1));
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < n; i++) {
+      var p = document.createElement('i');
+      p.style.left = (Math.random() * 100) + '%';
+      p.style.width = (5 + Math.random() * 7) + 'px';
+      p.style.height = (8 + Math.random() * 14) + 'px';
+      p.style.background = COLS[i % COLS.length];
+      p.style.borderRadius = Math.random() > .5 ? '999px' : '1px';
+      p.style.animation = 'confettiFall ' + (2.4 + Math.random() * 2.2) + 's cubic-bezier(.3,.5,.5,1) ' + (Math.random() * .9) + 's forwards';
+      frag.appendChild(p);
+    }
+    layer.appendChild(frag);
+    clearTimeout(confettiTimer);
+    confettiTimer = setTimeout(function () { layer.textContent = ''; }, 6000);
+  }
+
+  /* ---------- easter egg ---------- */
+  $('egg').addEventListener('click', function () {
+    state.taps++;
+    if (state.taps >= 4) { $('eggnote').hidden = false; burst(1); }
+  });
+
+  /* ---------- music ---------- */
+  var ctx = null, master = null, musicInt = null;
+  var SEQ = [523.25, 659.25, 783.99, 880, 783.99, 659.25, 587.33, 523.25, 493.88, 587.33, 659.25, 783.99];
+
+  function startMusic() {
+    if (ctx) return;
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      ctx = new AC();
+      if (ctx.state === 'suspended') ctx.resume();
+      master = ctx.createGain();
+      master.gain.value = 0.10;
+      master.connect(ctx.destination);
+      var i = 0;
+      var tick = function () {
+        if (!ctx) return;
+        var f = SEQ[i % SEQ.length]; i++;
+        var now = ctx.currentTime;
+        var o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'triangle'; o.frequency.value = f;
+        g.gain.setValueAtTime(0, now);
+        g.gain.linearRampToValueAtTime(0.5, now + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+        o.connect(g); g.connect(master); o.start(now); o.stop(now + 1.6);
+        if (i % 4 === 1) {
+          var b = ctx.createOscillator(), bg = ctx.createGain();
+          b.type = 'sine'; b.frequency.value = f / 4;
+          bg.gain.setValueAtTime(0, now);
+          bg.gain.linearRampToValueAtTime(0.28, now + 0.15);
+          bg.gain.exponentialRampToValueAtTime(0.001, now + 2.6);
+          b.connect(bg); bg.connect(master); b.start(now); b.stop(now + 2.7);
+        }
+      };
+      tick();
+      musicInt = setInterval(tick, 620);
+      state.music = true;
+      paintMusic();
+    } catch (e) { /* no audio, no problem */ }
+  }
+
+  function stopMusic() {
+    if (musicInt) { clearInterval(musicInt); musicInt = null; }
+    if (ctx) { try { ctx.close(); } catch (e) {} ctx = null; master = null; }
+    state.music = false;
+    paintMusic();
+  }
+
+  function paintMusic() {
+    var b = $('music');
+    b.textContent = state.music ? 'on' : 'off';
+    b.setAttribute('aria-pressed', state.music ? 'true' : 'false');
+  }
+
+  $('music').addEventListener('click', function () { state.music ? stopMusic() : startMusic(); });
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden && state.music) stopMusic();
+  });
+
+  /* ---------- her note ---------- */
+  var noteBox = $('noteBox');
+  var KEY = 'lalima-note-back';
+  try { var saved = localStorage.getItem(KEY); if (saved) noteBox.value = saved; } catch (e) {}
+  noteBox.addEventListener('input', function () {
+    try { localStorage.setItem(KEY, noteBox.value); } catch (e) {}
+  });
+
+  var sendBtn = $('sendBtn'), sendLabel = $('sendLabel'), sentMsg = $('sentMsg');
+  var sending = false;
+
+  function waLink(text) {
+    return 'https://wa.me/' + CONFIG.send.fallbackPhone + '?text=' + encodeURIComponent(text);
+  }
+
+  function showMsg(html, ok) {
+    sentMsg.innerHTML = html;
+    sentMsg.style.color = ok ? '#ffdcb0' : '#ffb4a2';
+    sentMsg.hidden = false;
+  }
+
+  function onSent() {
+    sending = false;
+    state.sent = true;
+    sendBtn.disabled = true;
+    sendLabel.textContent = 'sent';
+    showMsg('Sent. I&rsquo;m going to read that far too many times.', true);
+    // Only drop the local draft once delivery is actually confirmed.
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    burst(1);
+  }
+
+  function onFail(text) {
+    sending = false;
+    sendBtn.disabled = false;
+    sendLabel.textContent = 'try again';
+    var alt = CONFIG.send.fallbackPhone
+      ? ' <a href="' + waLink(text) + '" target="_blank" rel="noopener">Send it on WhatsApp instead &rarr;</a>'
+      : '';
+    showMsg('That didn&rsquo;t go through. Your note is still here, nothing is lost.' + alt, false);
+  }
+
+  function postJSON(url, payload, text) {
+    sending = true;
+    sentMsg.hidden = true;
+    sendBtn.disabled = true;
+    sendLabel.textContent = 'sending…';
+
+    // Phones drop off wifi mid-request; don't let it hang forever.
+    var ctl = window.AbortController ? new AbortController() : null;
+    var bail = setTimeout(function () { if (ctl) ctl.abort(); }, 12000);
+
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: ctl ? ctl.signal : undefined
+    })
+      .then(function (r) {
+        clearTimeout(bail);
+        return r.json().catch(function () { return { success: r.ok }; });
+      })
+      .then(function (j) { (j && j.success) ? onSent() : onFail(text); })
+      .catch(function () { clearTimeout(bail); onFail(text); });
+  }
+
+  sendBtn.addEventListener('click', function () {
+    if (sending || state.sent) return;
+    var text = noteBox.value.trim();
+    if (!text) { noteBox.focus(); return; }
+    var c = CONFIG.send || {};
+    var configured = c.key && c.key.indexOf('PASTE_') !== 0;
+
+    if (c.mode === 'web3forms' && configured) {
+      postJSON('https://api.web3forms.com/submit', {
+        access_key: c.key,
+        subject: 'Lalima wrote back',
+        from_name: 'For Lalima',
+        message: text
+      }, text);
+      return;
+    }
+
+    if (c.mode === 'formspree' && c.endpoint) {
+      postJSON(c.endpoint, { message: text }, text);
+      return;
+    }
+
+    if (c.mode === 'whatsapp' && c.phone) {
+      window.open('https://wa.me/' + c.phone + '?text=' + encodeURIComponent(text), '_blank', 'noopener');
+      onSent();
+      return;
+    }
+
+    // Nothing configured. Say so rather than claiming it was sent.
+    if (c.fallbackPhone) { window.open(waLink(text), '_blank', 'noopener'); onSent(); return; }
+    showMsg('Delivery isn&rsquo;t set up yet &mdash; see CONFIG at the top of index.html.', false);
+  });
+
+  /* ---------- boot ---------- */
+  paintCandles();
+  paintIntroCopy();
+  if (location.hash === '#skip') { state.blown = true; state.lit = 5; toStory(); }
+  else runIntro();
+})();
+</script>
+</body>
+</html>
