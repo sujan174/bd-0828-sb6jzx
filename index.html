@@ -797,9 +797,9 @@
     sendBtn.disabled = false;
     sendLabel.textContent = 'try again';
     var alt = CONFIG.send.fallbackPhone
-      ? ' <a href="' + waLink(text) + '" target="_blank" rel="noopener">Send it on WhatsApp instead &rarr;</a>'
+      ? ' <a href="' + waLink(text) + '" target="_blank" rel="noopener">Send it to me on WhatsApp &rarr;</a>'
       : '';
-    showMsg('That didn&rsquo;t go through. Your note is still here, nothing is lost.' + alt, false);
+    showMsg('Hmm &mdash; that didn&rsquo;t want to send. Nothing is lost, it&rsquo;s all still here.' + alt, false);
   }
 
   // Sent as FormData on purpose. A JSON content-type would make the browser
